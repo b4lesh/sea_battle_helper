@@ -42,6 +42,7 @@ def calculate(event):  # подсчет кораблей
                 brain.sum_open_cells[pos_x][k] = 0
             brain.sum_possible_ship[pos_x][k] = brain.count_ship(pole, pos_x, k, length_ship)
             brain.sum_possible_ship[pos_x][k] += brain.count_ship(pole, pos_x, k, length_ship - 1)
+            brain.sum_possible_ship[pos_x][k] += brain.count_ship(pole, pos_x, k, length_ship - 2)
             # отображение на ячейках
             if checkbutton_empty_value.get():
                 cell[pos_x][k]["text"] = "{0} {1}".format(str(brain.sum_possible_ship[pos_x][k]),
@@ -94,7 +95,7 @@ entry_size = Entry(width=5, justify=CENTER)  # размер корабля
 label_empty = Label(text="Подсчет клеток вокруг")
 checkbutton_empty_value = BooleanVar()
 checkbutton_empty = Checkbutton(variable=checkbutton_empty_value,
-                                onvalue=1,offvalue=0)
+                                onvalue=1, offvalue=0)
 button_calc = Button(text="Расчет позиции")  # кнопка для подсчета
 button_clear = Button(text="Новая игра")
 
