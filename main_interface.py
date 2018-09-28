@@ -29,6 +29,7 @@ def calculate(event):  # подсчет кораблей
                 cell[pos_x][k]["bg"] = "#808080"
             else:
                 cell[pos_x][k]["bg"] = "SystemButtonFace"
+
             try:
                 length_ship = int(entry_size.get())
             except ValueError:
@@ -40,18 +41,25 @@ def calculate(event):  # подсчет кораблей
             else:
                 brain.sum_open_cells[pos_x][k] = 0
             brain.sum_possible_ship[pos_x][k] = brain.count_ship(pole, pos_x, k, length_ship)
+            brain.sum_possible_ship[pos_x][k] += brain.count_ship(pole, pos_x, k, length_ship - 1)
             # отображение на ячейках
-            cell[pos_x][k]["text"] = "{0} {1}".format(str(brain.sum_possible_ship[pos_x][k]),
-                                                      str(brain.sum_open_cells[pos_x][k]))
-            if brain.sum_possible_ship[pos_x][k] > max_maybe:
-                max_maybe = brain.sum_possible_ship[pos_x][k]
-                max_open = brain.sum_open_cells[pos_x][k]
-                max_index_x, max_index_y = pos_x, k
-            elif brain.sum_possible_ship[pos_x][k] == max_maybe and \
-                    brain.sum_open_cells[pos_x][k] > max_open:
-                max_maybe = brain.sum_possible_ship[pos_x][k]
-                max_open = brain.sum_open_cells[pos_x][k]
-                max_index_x, max_index_y = pos_x, k
+            if checkbutton_empty_value.get():
+                cell[pos_x][k]["text"] = "{0} {1}".format(str(brain.sum_possible_ship[pos_x][k]),
+                                                          str(brain.sum_open_cells[pos_x][k]))
+                if brain.sum_possible_ship[pos_x][k] > max_maybe:
+                    max_maybe = brain.sum_possible_ship[pos_x][k]
+                    max_open = brain.sum_open_cells[pos_x][k]
+                    max_index_x, max_index_y = pos_x, k
+                elif brain.sum_possible_ship[pos_x][k] == max_maybe and \
+                        brain.sum_open_cells[pos_x][k] > max_open:
+                    max_maybe = brain.sum_possible_ship[pos_x][k]
+                    max_open = brain.sum_open_cells[pos_x][k]
+                    max_index_x, max_index_y = pos_x, k
+            else:
+                cell[pos_x][k]["text"] = str(brain.sum_possible_ship[pos_x][k])
+                if brain.sum_possible_ship[pos_x][k] > max_maybe:
+                    max_maybe = brain.sum_possible_ship[pos_x][k]
+                    max_index_x, max_index_y = pos_x, k
         print(brain.sum_possible_ship[pos_x])  # вывод на экран
 
     print()
@@ -83,6 +91,10 @@ for x in range(10):
 # оставшиеся объекты
 label_size = Label(text="Размер корабля")  # наклейка размера
 entry_size = Entry(width=5, justify=CENTER)  # размер корабля
+label_empty = Label(text="Подсчет клеток вокруг")
+checkbutton_empty_value = BooleanVar()
+checkbutton_empty = Checkbutton(variable=checkbutton_empty_value,
+                                onvalue=1,offvalue=0)
 button_calc = Button(text="Расчет позиции")  # кнопка для подсчета
 button_clear = Button(text="Новая игра")
 
@@ -102,6 +114,9 @@ for i in range(10):  # ячейки
 label_size.grid(row=0, column=11)
 entry_size.grid(row=1, column=11)
 button_calc.grid(row=2, column=11)
+label_empty.grid(row=4, column=11)
+checkbutton_empty.grid(row=5, column=11)
+
 # button_clear.grid(row=9, column=11)
 
 root.mainloop()
