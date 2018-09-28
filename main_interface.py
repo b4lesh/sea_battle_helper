@@ -45,8 +45,7 @@ def calculate(event):  # подсчет кораблей
             brain.sum_possible_ship[pos_x][k] += brain.count_ship(pole, pos_x, k, length_ship - 2)
             # отображение на ячейках
             if checkbutton_empty_value.get():
-                cell[pos_x][k]["text"] = "{0} {1}".format(str(brain.sum_possible_ship[pos_x][k]),
-                                                          str(brain.sum_open_cells[pos_x][k]))
+                cell[pos_x][k]["text"] = brain.sum_open_cells[pos_x][k]
                 if brain.sum_possible_ship[pos_x][k] > max_maybe:
                     max_maybe = brain.sum_possible_ship[pos_x][k]
                     max_open = brain.sum_open_cells[pos_x][k]
