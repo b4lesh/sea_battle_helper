@@ -75,8 +75,9 @@ def calculate(event):  # подсчет кораблей
 
 # объекты
 horizontal_line, vertical_line = [], []  # границы
+hor = ['А', 'Б', 'В', 'Г', 'Д', 'Е', 'Ж', 'З', 'И', 'К']
 for i in range(10):
-    horizontal_line.append(Label(text=str(i + 1)))
+    horizontal_line.append(Label(text=hor[i]))
     vertical_line.append(Label(text=str(i + 1), justify=LEFT))
 
 pole, cell = [], []  # ячейки
@@ -103,6 +104,8 @@ button_calc.bind('<Button-1>', calculate)
 button_clear.bind('<Button-1>', new_game)
 
 # размещение объектов
+
+
 for i in range(10):  # границы
     horizontal_line[i].grid(row=0, column=i + 1)
     vertical_line[i].grid(row=i + 1, column=0)
