@@ -11,24 +11,24 @@ root.wm_geometry("+%d+%d" % (x_screen, y_screen))
 
 def new_game(event):
     for x in range(10):
-        horizontal_line[i]["bg"] = "SystemButtonFace"
-        vertical_line[i]["bg"] = "SystemButtonFace"
+        horizontal_line[i]["bg"] = "light gray"
+        vertical_line[i]["bg"] = "light gray"
         for y in range(10):
             pole[x][y].set(0)
-            cell[x][y]["bg"] = "SystemButtonFace"
+            cell[x][y]["bg"] = "light gray"
 
 
 def calculate(event):  # подсчет кораблей
     for index_i in range(10):  # обновление границы
-        horizontal_line[index_i]["bg"] = "SystemButtonFace"
-        vertical_line[index_i]["bg"] = "SystemButtonFace"
+        horizontal_line[index_i]["bg"] = "light gray"
+        vertical_line[index_i]["bg"] = "light gray"
     max_maybe = max_open = max_index_x = max_index_y = -1
     for pos_x in range(10):
         for k in range(10):
             if pole[pos_x][k].get() == 1:
                 cell[pos_x][k]["bg"] = "#808080"
             else:
-                cell[pos_x][k]["bg"] = "SystemButtonFace"
+                cell[pos_x][k]["bg"] = "light gray"
 
             try:
                 length_ship = int(entry_size.get())
